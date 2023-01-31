@@ -12,6 +12,7 @@
     <h1>Hello {{ controller_name }}! ✅</h1>
 
     This friendly message is coming from:
+    This friendly message is coming from: {{ name }} {% if app.user %} for {{ app.user.email }}{% endif %}
     <ul>
         <li>Your controller at <code><a href="{{ 'C:/xamp/htdocs/lauwend/src/Controller/DefaultController.php'|file_link(0) }}">src/Controller/DefaultController.php</a></code></li>
         <li>Your template at <code><a href="{{ 'C:/xamp/htdocs/lauwend/templates/default/index.html.twig'|file_link(0) }}">templates/default/index.html.twig</a></code></li>

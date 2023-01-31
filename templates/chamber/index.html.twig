@@ -5,26 +5,30 @@
 {% block body %}
     <h1>Chamber index</h1>
 
-    <table class="table">
+    <table id="lijst" class="table">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>actions</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>Naam</th>
+            <th>Beschrijving</th>
+            <th>Prijs</th>
+            <th>Afbeelding</th>
+        </tr>
         </thead>
         <tbody>
         {% for chamber in chambers %}
             <tr>
                 <td>{{ chamber.id }}</td>
                 <td>{{ chamber.name }}</td>
-                <td>{{ chamber.description }}</td>
+                <td>{{ chamber.description | raw }}</td>
                 <td>{{ chamber.price }}</td>
+                </td>
                 <td>
                     <a href="{{ path('app_chamber_show', {'id': chamber.id}) }}">show</a>
-                    <a href="{{ path('app_chamber_edit', {'id': chamber.id}) }}">edit</a>
+                    <a href="{{ path('app_cart_add', {'id': chamber.id}) }}">reserveer</a>
+                    {% if is_granted("ROLE_ADMIN") %}
+                        <a href="{{ path('app_chamber_edit', {'id': chamber.id}) }}">edit</a>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}
@@ -34,6 +38,7 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_chamber_new') }}">Create new</a>
+    {% if is_granted("ROLE_ADMIN") %}
+        <a href="{{ path('app_chamber_new') }}">Create new</a>
+    {% endif %}
 {% endblock %}
